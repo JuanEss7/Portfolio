@@ -1,4 +1,7 @@
 ---
+import "@fontsource/poppins";
+import { ViewTransitions } from "astro:transitions";
+import { Toaster } from "sonner";
 interface Props {
 	title: string;
 }
@@ -7,7 +10,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
@@ -18,34 +21,241 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<slot />
+		<Toaster client:idle />
 	</body>
 </html>
 <style is:global>
+	/*=============== VARIABLES CSS ===============*/
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		--header-height: 3rem;
+
+		/*========== Colors ==========*/
+		/*Color mode HSL(hue, saturation, lightness)*/
+		--hue: 0;
+		--sat: 0%;
+		--title-color: hsl(var(--hue), var(--sat), 20%); /*#333333*/
+		--title-color-dark: hsl(var(--hue), var(--sat), 0%); /*#000000*/
+		--text-color: hsl(var(--hue), var(--sat), 46%); /* 	#757575*/
+		--body-color: hsl(var(--hue), var(--sat), 98%); /* #FAFAFA*/
+		--container-color: #fff;
+
+		/*========== Font and typography ==========*/
+		--body-font: "Poppins", sans-serif;
+
+		/*.5rem = 8px | 1rem = 16px ...*/
+		--big-font-size: 3.5rem;
+		--h1-font-size: 2.25rem;
+		--h2-font-size: 1.5rem;
+		--h3-font-size: 1.25rem;
+		--normal-font-size: 1rem;
+		--small-font-size: 0.875rem;
+		--smaller-font-size: 0.813rem;
+		--tiny-font-size: 0.625rem;
+
+		/*========== Font weight ==========*/
+		--font-normal: 400;
+		--font-medium: 500;
+		--font-semi-bold: 600;
+
+		/*========== Margenes Bottom ==========*/
+		/*.5rem = 8px | 1rem = 16px ...*/
+		--mb-0-25: 0.25rem;
+		--mb-0-5: 0.5rem;
+		--mb-0-75: 0.75rem;
+		--mb-1: 1rem;
+		--mb-1-5: 1.5rem;
+		--mb-2: 2rem;
+		--mb-2-5: 2.5rem;
+		--mb-3: 3rem;
+
+		/*========== z index ==========*/
+		--z-tooltip: 10;
+		--z-fixed: 100;
+		--z-modal: 1000;
 	}
+
+	/* Responsive typography */
+	@media screen and (max-width: 992px) {
+		:root {
+			--big-font-size: 2.75rem;
+			--h1-font-size: 1.5rem;
+			--h2-font-size: 1.25rem;
+			--h3-font-size: 1rem;
+			--normal-font-size: 0.938rem;
+			--small-font-size: 0.813rem;
+			--smaller-font-size: 0.75rem;
+		}
+	}
+	/*=============== BASE ===============*/
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
 	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
+		scroll-behavior: smooth;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+
+	body,
+	button,
+	input,
+	textarea {
+		font-family: var(--body-font);
+		font-size: var(--normal-font-size);
+	}
+
+	body {
+		background-color: var(--body-color);
+		color: var(--text-color);
+		scroll-behavior: smooth;
+		width: 100dvw;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	h1,
+	h2,
+	h3 {
+		color: var(--title-color);
+		font-weight: var(--font-semi-bold);
+	}
+
+	ul {
+		list-style: none;
+	}
+
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	button {
+		cursor: pointer;
+		border: none;
+		outline: none;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	/*=============== REUSABLE CSS CLASSES ===============*/
+	.section {
+		padding: 6rem 0 2rem;
+	}
+
+	.section__title {
+		font-size: var(--h1-font-size);
+		color: var(--title-color);
+	}
+
+	.section__subtitle {
+		display: block;
+		font-size: var(--small-font-size);
+		margin-bottom: 4rem;
+	}
+
+	.section__title,
+	.section__subtitle {
+		text-align: center;
+	}
+
+	/*=============== LAYOUT ===============*/
+	.container {
+		width: 80%;
+		animation: aparecer 0.2s ease-in both;
+	}
+
+	.grid {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	/*=============== BUTTONS ===============*/
+	.button {
+		display: inline-block;
+		background-color: var(--title-color);
+		color: var(--container-color);
+		padding: 1.25rem 2rem;
+		border-radius: 1rem;
+		font-weight: var(--font-medium);
+	}
+
+	.button:hover {
+		background-color: var(--title-color-dark);
+	}
+
+	.button__icon {
+		margin-left: var(--mb-0-5);
+	}
+
+	.button--flex {
+		display: inline-flex;
+		align-items: center;
+	}
+
+	/*=============== BREAKPOINTS ===============*/
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+	}
+
+	/* For large devices */
+	@media screen and (max-width: 992px) {
+		.container {
+			margin-left: var(--mb-1-5);
+			margin-right: var(--mb-1-5);
+		}
+
+		.button {
+			padding: 1rem 1.75rem;
+		}
+
+		.button__icon {
+			width: 22px;
+			height: 22px;
+		}
+	}
+
+	/* For medium devices */
+	@media screen and (max-width: 768px) {
+		body {
+			margin: 0 0 var(--header-height) 0;
+		}
+
+		.section {
+			padding: 2rem 0 4rem;
+		}
+
+		.section__subtitle {
+			margin-bottom: var(--mb-3);
+		}
+	}
+
+	@media screen and (max-width: 576px) {
+	}
+
+	/* For small devices */
+	@media screen and (max-width: 350px) {
+		:root {
+			--big-font-size: 2.25rem;
+		}
+
+		.container {
+			margin-left: var(--mb-1);
+			margin-right: var(--mb-1);
+		}
+	}
+	@keyframes aparecer {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 </style>

@@ -1,0 +1,134 @@
+---
+import { RiCodeSLine } from "react-icons/ri";
+import { MdOutlineMenuOpen } from "react-icons/md";
+---
+
+<header>
+    <div class="container">
+        <RiCodeSLine fill="var(--text-color)" size={32} />
+        <ul class="items">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Sobre mi</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <ul class="items-phone disable">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Sobre mi</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <label class="icon-menu">
+            <MdOutlineMenuOpen
+                fill="var(--text-color)"
+                size={32}
+                className="open-menu-icon"
+            />
+        </label>
+    </div>
+</header>
+<style>
+    header {
+        background-color: var(--body-color);
+        color: var(--text-color);
+        position: sticky;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.053);
+        top: 0;
+        width: 100%;
+        height: var(--header-height);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: var(--z-fixed);
+        font-size: var(--normal-font-size);
+        font-weight: var(--font-semi-bold);
+    }
+    .container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .items-phone.disable {
+        display: none;
+    }
+    .icon-menu {
+        width: min-content;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        & .checkbox {
+            display: none;
+        }
+    }
+    .items {
+        display: flex;
+        gap: 2rem;
+    }
+    .items,
+    .items-phone {
+        & li {
+            transition: color 0.16s ease;
+        }
+        & li:hover {
+            cursor: pointer;
+            color: var(--title-color);
+        }
+    }
+    
+    @media screen and (width <= 768px) {
+        header {
+            bottom: 0;
+            right: 0;
+        }
+        .items {
+            display: none;
+        }
+        .icon-menu {
+            display: flex;
+        }
+        .items-phone.enable {
+            background-color: var(--body-color);
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.053);
+            position: absolute;
+            right: 0;
+            bottom: -3rem;
+            width: 100%;
+            height: var(--header-height);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 2rem;
+        }
+    }
+</style>
+<script>
+    const icon = document.querySelector(".open-menu-icon");
+    const items_phone = document.querySelector(".items-phone");
+    const items_link = document.querySelectorAll(".items-phone > li > a");
+
+    window.addEventListener("resize", (e) => {
+        const window_width = e.target?.innerWidth;
+        const isItemsPhoneEnable = items_phone?.classList.contains("enable");
+        if (window_width >= 768 && isItemsPhoneEnable) {
+            items_phone?.classList.replace("enable", "disable");
+        }
+    });
+    icon?.addEventListener("click", () => {
+        const isItemsPhoneDisable = items_phone?.classList.contains("disable");
+        if (isItemsPhoneDisable) {
+            items_phone?.classList.replace("disable", "enable");
+        } else {
+            items_phone?.classList.replace("enable", "disable");
+        }
+    });
+    items_link.forEach((link) => {
+        link.addEventListener("click", () => {
+            const isItemsPhoneEnable =
+                items_phone?.classList.contains("enable");
+            if (isItemsPhoneEnable) {
+                items_phone?.classList.replace("enable", "disable");
+            }
+        });
+    });
+</script>
