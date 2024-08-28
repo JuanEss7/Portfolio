@@ -7,19 +7,35 @@
     <form>
         <label>
             Nombre
-            <input type="text" name="nombre" required />
+            <input
+                type="text"
+                name="nombre"
+                placeholder="Deja tu nombre..."
+                required
+            />
         </label>
         <label>
             Email
-            <input type="email" name="email" required />
+            <input
+                type="email"
+                name="email"
+                placeholder="Deja tu email..."
+                required
+            />
         </label>
         <label>
             Asunto
-            <input type="text" name="asunto" required />
+            <input
+                type="text"
+                name="asunto"
+                placeholder="Deja tu asunto..."
+                required
+            />
         </label>
         <label>
             Mensaje
-            <textarea name="mensaje" rows="3"></textarea>
+            <textarea name="mensaje" rows="3" placeholder="Deja tu mensaje..."
+            ></textarea>
         </label>
         <button type="submit">Enviar</button>
     </form>
@@ -36,6 +52,7 @@
         font-size: var(--h1-font-size);
         font-weight: var(--font-semi-bold);
         color: var(--title-color);
+        margin-bottom: 1.5rem;
     }
     .container form {
         background-color: var(--container-color);
@@ -56,14 +73,15 @@
             font-weight: 500;
             font-size: var(--normal-font-size);
             color: var(--title-color-dark);
-            gap: 0.5rem;
             & > input {
+                border: none;
+                border-bottom: 1px solid;
                 width: 100%;
-                padding: 0 5px;
+                padding: 0px 5px;
                 color: var(--title-color);
                 font-size: var(--small-font-size);
                 &:focus {
-                    outline-color: var(--title-color);
+                    outline: none;
                 }
             }
         }
@@ -74,7 +92,7 @@
             resize: vertical;
             font-size: var(--small-font-size);
             &:focus {
-                outline-color: var(--title-color);
+                outline: none;
             }
         }
 
@@ -84,9 +102,11 @@
             color: #fff;
             padding: 0.5rem 1rem;
             border-radius: 8px;
-            transition: opacity 0.2s ease;
+            transition: all 0.2s ease;
             &:hover {
-                opacity: 0.9;
+                outline: 1px solid var(--title-color);
+                background-color: transparent;
+                color: var(--title-color);
             }
         }
     }
@@ -112,7 +132,7 @@
             typeof mensaje !== "string"
         )
             return;
-        fetch("http://localhost:4321/api/server", {
+        fetch("/api/server", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre, asunto, mensaje, email }),
@@ -120,5 +140,7 @@
             .then((res) => res.json())
             .then((msj) => toast.success(msj))
             .catch((err) => toast.error(err));
+
+        formTarget.reset();
     });
 </script>
