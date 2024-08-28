@@ -13,8 +13,19 @@ import { FaLinkedin } from "react-icons/fa";
                 Consequatur, porro. Veritatis quisquam facere reiciendis minus.
             </p>
             <ul class="iconos">
-                <li><FaGithub size={28} fill="var(--text-color)" /></li>
-                <li><FaLinkedin size={28} fill="var(--text-color)" /></li>
+                <li>
+                    <a href="https://github.com/JuanEss7" target="_blank">
+                        <FaGithub size={28} />
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="https://www.linkedin.com/in/juanessanchez"
+                        target="_blank"
+                    >
+                        <FaLinkedin size={28} />
+                    </a>
+                </li>
             </ul>
         </div>
     </section>
@@ -80,20 +91,25 @@ import { FaLinkedin } from "react-icons/fa";
         align-items: center;
         gap: 0.7rem;
         & li {
-            height: 28px;
+            height: fit-content;
             width: fit-content;
-            & :first-child,
-            &:last-child {
-                transition: all 0.16s ease;
-            }
-            & :first-child:hover,
-            &:last-child:hover {
-                cursor: pointer;
-                transform: scale(1.04);
-                fill: var(--title-color);
+            & > a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                & > :first-child {
+                    fill: var(--text-color);
+                    transition: all 0.2s ease;
+                }
+                & > :first-child:hover {
+                    fill: var(--title-color);
+                    cursor: pointer;
+                    transform: scale(1.04);
+                }
             }
         }
     }
+
     .imagen {
         /* border: 1px solid; */
         & div {
