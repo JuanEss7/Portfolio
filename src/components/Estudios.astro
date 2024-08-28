@@ -27,7 +27,11 @@ const certificados = [
                 return (
                     <div>
                         <img src={img} alt={`${leng} certificado`} />
-                        <a href={link} target="_blank">
+                        <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             Abrir
                             <LuExternalLink
                                 style={{
