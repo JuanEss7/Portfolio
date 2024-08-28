@@ -1,50 +1,55 @@
 ---
-import { HiBadgeCheck } from "react-icons/hi";
+import { FaCircleCheck } from "react-icons/fa6";
+import { LuLoader } from "react-icons/lu";
 const skills = [
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "HTML",
     },
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "CSS",
     },
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "JavaScript",
     },
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "Tailwind",
     },
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "ReactJs",
     },
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "TypeScript",
     },
 
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "NextJs",
     },
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "Astro",
     },
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "NodeJS",
     },
     {
-        logo: "",
+        aprendido: true,
         lenguaje: "Express",
     },
     {
-        logo: "",
+        aprendido: false,
         lenguaje: "Prisma",
+    },
+    {
+        aprendido: false,
+        lenguaje: "Firebase",
     },
 ];
 ---
@@ -56,7 +61,11 @@ const skills = [
             skills.map((skill) => {
                 return (
                     <li>
-                        <HiBadgeCheck />
+                        {skill.aprendido ? (
+                            <FaCircleCheck size={18} />
+                        ) : (
+                            <LuLoader size={18} />
+                        )}
                         {skill.lenguaje}
                     </li>
                 );
