@@ -108,8 +108,8 @@ import { MdOutlineMenuOpen } from "react-icons/md";
     const items_phone = document.querySelector(".items-phone");
     const items_link = document.querySelectorAll(".items-phone > li > a");
 
-    window.addEventListener("resize", (e) => {
-        const window_width = e.target?.innerWidth;
+    window.addEventListener("resize", () => {
+        const window_width = window.innerWidth;
         const isItemsPhoneEnable = items_phone?.classList.contains("enable");
         if (window_width >= 768 && isItemsPhoneEnable) {
             items_phone?.classList.replace("enable", "disable");
