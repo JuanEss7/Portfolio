@@ -6,11 +6,13 @@ import Contacto from "../sections/Contacto.astro";
 import Proyects from "../sections/Proyects.astro";
 import Stack from "../sections/Stack.astro";
 import Estudios from "../sections/Estudios.astro";
+import Button from "../components/Button";
 ---
 
 <Layout title="Portfolio dev">
 	<Header />
 	<Home />
+	<Button client:load />
 	<Stack />
 	<Proyects />
 	<Estudios />

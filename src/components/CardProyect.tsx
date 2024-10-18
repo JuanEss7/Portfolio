@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { FaGithub } from "react-icons/fa";
 import { LuExternalLink } from "react-icons/lu";
 import './style.css'

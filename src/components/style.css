@@ -34,8 +34,6 @@
     align-items: start;
     padding: 0.5rem;
     text-align: start;
-    /* filter: blur(3px);
-opacity: 0.17; */
     transition: all 0.15s ease;
 
     & h3 {
